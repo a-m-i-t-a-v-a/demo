@@ -1,9 +1,14 @@
 import React from 'react'
+import { useGetAllProductsQuery } from '../management/productsApi'
+import Body from './Body'
 
 const Home = () => {
+
+  const {data,error,isLoading}=useGetAllProductsQuery()
+
   return (
-    <div>
-      <h2>Home</h2>
+    <div className='home-container'>
+      <Body data={data} error={error} isLoading={isLoading}/>
     </div>
   )
 }
