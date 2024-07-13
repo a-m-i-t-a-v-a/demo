@@ -1,8 +1,20 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../management/cartSlice'
+import { useNavigate } from 'react-router-dom'
 
 const Body = ({data,error,isLoading}) => {
+
+  const dispatch=useDispatch()
+  const navigate=useNavigate()
+
+  const handleAddToCart=(product)=>{
+    dispatch(addToCart(product))
+    navigate('/cart')
+  }
+
   return (
-    <>
+    <div className='main-container'>
       {isLoading ? 
           <p>Loading...</p> : 
           (error ? 
@@ -10,7 +22,7 @@ const Body = ({data,error,isLoading}) => {
             : 
             <>
               <h2>New Arrivals</h2>
-              <div className='products'>
+              <div className='product-container'>
               {data?.map((prod)=>{
                 return (
                   <div key={prod.id} className='products'>
@@ -20,14 +32,14 @@ const Body = ({data,error,isLoading}) => {
                         <span>{prod.description}</span>
                         <span className='price'>${prod.price}</span>
                     </div>
-                    <button>Add to Cart</button>
+                    <button onClick={()=>handleAddToCart(prod)}>Add to Cart</button>
                   </div>
                 )
               })}
               </div>
             </>
           )}
-    </>
+    </div>
   )
 }
 
