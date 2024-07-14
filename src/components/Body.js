@@ -18,7 +18,7 @@ const Body = ({data,error,isLoading}) => {
       {isLoading ? 
           <p>Loading...</p> : 
           (error ? 
-            <p>An error occured {error}</p> 
+            <p>An error occurred: {typeof error === 'string' ? error : JSON.stringify(error)}</p>
             : 
             <>
               <h2>New Arrivals</h2>

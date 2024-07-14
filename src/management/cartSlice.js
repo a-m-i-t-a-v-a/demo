@@ -24,10 +24,19 @@ const cartSlice=createSlice({
                 })
             }
             localStorage.setItem("cartItems",JSON.stringify(state.cartItems))
-        }  
+        }, 
+        removeFromCart(state,action){
+            const remainingCartItems=state.cartItems.filter((item)=>item.id!==action.payload.id)
+            state.cartItems=remainingCartItems;
+
+            localStorage.setItem("cartItems",JSON.stringify(state.cartItems))
+            toast.error(`${action.payload.name} removed from the cart`,{
+                position:"bottom-left"
+            })
+        }
     }
 })
 
-export const {addToCart}=cartSlice.actions
+export const {addToCart,removeFromCart}=cartSlice.actions
 
 export default cartSlice.reducer
